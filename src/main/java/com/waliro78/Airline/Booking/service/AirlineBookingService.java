@@ -1,12 +1,11 @@
-package com.waliro78.Airline.Booking.Service;
+package com.waliro78.Airline.Booking.service;
 
-import com.waliro78.Airline.Booking.Entity.AirlineBooking;
-import com.waliro78.Airline.Booking.Repository.AirlineBookingRepo;
+import com.waliro78.Airline.Booking.entity.AirlineBooking;
+import com.waliro78.Airline.Booking.repository.AirlineBookingRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 /**
  * Created by WALE on 03/12/2019.

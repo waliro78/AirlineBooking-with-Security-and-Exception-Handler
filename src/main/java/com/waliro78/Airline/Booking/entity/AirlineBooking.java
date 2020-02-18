@@ -1,7 +1,6 @@
-package com.waliro78.Airline.Booking.Entity;
+package com.waliro78.Airline.Booking.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;

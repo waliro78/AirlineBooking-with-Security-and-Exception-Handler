@@ -1,17 +1,16 @@
-package com.waliro78.Airline.Booking.Controller;
+package com.waliro78.Airline.Booking.controller;
 
-import com.waliro78.Airline.Booking.Componet.AirlineBookingResponse;
-import com.waliro78.Airline.Booking.Entity.AirlineBooking;
-import com.waliro78.Airline.Booking.Service.AirlineBookingService;
+import com.waliro78.Airline.Booking.componet.AirlineBookingResponse;
+import com.waliro78.Airline.Booking.entity.AirlineBooking;
+import com.waliro78.Airline.Booking.exception.ApiException;
+import com.waliro78.Airline.Booking.exception.ApiGetTicketIdException;
+import com.waliro78.Airline.Booking.service.AirlineBookingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
-import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 /**
  * Created by WALE on 03/12/2019.
@@ -26,7 +25,7 @@ public class AirlineBookingController {
     private List<AirlineBooking> airlineBooking;
 
 
-    @PostMapping("/bookTicket")
+    @PostMapping("/user/bookTicket")
     public ResponseEntity<AirlineBooking> bookTicket(@RequestBody AirlineBooking airlineBooking){
         try {
             AirlineBookingResponse airlineBookingResponse = new AirlineBookingResponse();
@@ -39,15 +38,16 @@ public class AirlineBookingController {
             return new ResponseEntity(airlineBookingResponse, serverResponse);
         }
         catch(Exception exception){
-            HttpStatus serverResponse = HttpStatus.BAD_REQUEST;
-            AirlineBookingResponse airlineBookingResponse = new AirlineBookingResponse();
-            airlineBookingResponse.setActionCode("400");
-            airlineBookingResponse.setReason("BAD Request :"  + exception.getMessage());
-//            airlineBookingResponse.setReason(exception.getMessage());
-            return new ResponseEntity(airlineBookingResponse, serverResponse);
+            throw new ApiException("One or more field is Blank");
+//            HttpStatus serverResponse = HttpStatus.BAD_REQUEST;
+//            AirlineBookingResponse airlineBookingResponse = new AirlineBookingResponse();
+//            airlineBookingResponse.setActionCode("400");
+//            airlineBookingResponse.setReason("BAD Request :"  + exception.getMessage());
+//           airlineBookingResponse.setReason(exception.getMessage());
+
         }
     }
-    @GetMapping("/getBookedTicket/{ticketId}")
+    @GetMapping("/user/getBookedTicket/{ticketId}")
     public ResponseEntity<AirlineBooking> getBookedTicket(@PathVariable("ticketId") Integer ticketId, AirlineBooking airlineBooking){
         AirlineBookingResponse airlineBookingResponse = new AirlineBookingResponse();
         HttpStatus serverResponse = HttpStatus.FOUND;
@@ -59,15 +59,16 @@ public class AirlineBookingController {
             return new ResponseEntity(airlineBookingResponse,serverResponse);
         }
         else{
-             serverResponse = HttpStatus.NOT_FOUND;
-             airlineBookingResponse = new AirlineBookingResponse();
-            airlineBookingResponse.setActionCode("404");
-            airlineBookingResponse.setReason("Request NOT Found "  );
-            return new ResponseEntity(airlineBookingResponse, serverResponse);
+            throw new ApiGetTicketIdException("Request NOT Found ");
+//             serverResponse = HttpStatus.NOT_FOUND;
+//             airlineBookingResponse = new AirlineBookingResponse();
+//            airlineBookingResponse.setActionCode("404");
+//            airlineBookingResponse.setReason("Request NOT Found "  );
+//            return new ResponseEntity(airlineBookingResponse, serverResponse);
 
         }
     }
-    @PutMapping("/updateTicket/{ticketId}")
+    @PutMapping("/user/updateTicket/{ticketId}")
     public ResponseEntity<AirlineBooking> updateTicketDetail(@PathVariable("ticketId")Integer ticketId, @RequestBody AirlineBooking updateBooking){
         AirlineBookingResponse airlineBookingResponse = new AirlineBookingResponse();
        AirlineBooking airlineBooking = airlineBookingService.findById(ticketId);
@@ -93,7 +94,7 @@ public class AirlineBookingController {
             return new ResponseEntity(airlineBookingResponse, serverResponse);
         }
     }
-    @GetMapping("/listBookedTicket")
+    @GetMapping("/admin/listBookedTicket")
     public ResponseEntity<List> listBookedTicket() {
         try {
             HttpStatus serverResponse = HttpStatus.OK;

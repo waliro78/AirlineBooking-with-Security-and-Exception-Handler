@@ -1,10 +1,6 @@
-package com.waliro78.Airline.Booking.Componet;
+package com.waliro78.Airline.Booking.componet;
 
-import com.waliro78.Airline.Booking.Entity.AirlineBooking;
-import org.springframework.stereotype.Component;
-
-import java.util.List;
-import java.util.Optional;
+import com.waliro78.Airline.Booking.entity.AirlineBooking;
 
 /**
  * Created by WALE on 03/12/2019.
